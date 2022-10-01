@@ -8,6 +8,15 @@
             "name": "Python: Current File",
             "type": "python",
             "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "justMyCode": true
+        },
+        
+        {
+            "name": "Python: fontend File",
+            "type": "python",
+            "request": "launch",
             "program": "frontend.py",
             "console": "integratedTerminal",
             "justMyCode": true
