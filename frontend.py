@@ -12,7 +12,7 @@ class application():
         self.root.eval("tk::PlaceWindow . center")
 
         self.PasswordScreen()
-       
+           
     def PasswordScreen(self):
         self.PasswordScreen = Frame(self.root)
         self.PasswordScreen.grid()

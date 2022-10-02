@@ -1,11 +1,23 @@
+from backend import hash
+import random
+
 class hillCipher:
     def __init__(self, key):
         self.genTable()
         self.arr_size=len(self.arr)
-        self.key = self.CharToIntTable(key)
-        
+        self.key = self.CharToIntTable(hash(key))
+    
+    def genSalt(self):
+        salt_len = random.randint(200,400)
+        salt = []
+        for i in range(salt_len):
+            indexTable = random.randint(0,self.arr_size-2)
+            salt.append(self.arr[indexTable])
+        salt.append('e8605470426611edb8780242ac120002')
+        return "".join(salt)
+    
     def genTable(self):
-        self.arr = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "A", "B", "C", "D","E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "-", "=", "'", "\"", ";", ":", "<", ">", "?", "/", "[", "]", "{", "}", "\\", "\/", "|", ".", ",", "+", "_", "~", " "]
+        self.arr = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "A", "B", "C", "D","E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"," ", "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "-", "=", "'", ";", ":", "<", ">", "?", "+", "_", "~"]
         return
 
     def CharToIntTable(self, data):
@@ -17,6 +29,8 @@ class hillCipher:
         return "".join(data)
      
     def encrypt(self, data):
+        salt = self.genSalt()
+        data = f"{salt}{data}"
         data = self.CharToIntTable(data)
         key_length = len(self.key)
         
@@ -42,12 +56,14 @@ class hillCipher:
                 ind_key = 0 if ind_key + 1 == key_length else ind_key + 1
             
             plaintText = self.IntToCharTable(plaint)
+            plaintText = plaintText.split('e8605470426611edb8780242ac120002')[-1]
+
             return plaintText
         except:
             return '<this is not your result> !! something error!'
 
-string = "TFDXUVaHDB8374t3827fdhgkjdnb"
-key = 'Tpzhxfc'
+string = "MotChiecBanh"
+key = 'ankem'
 hill = hillCipher(key=key)
 
 cipher = hill.encrypt(string)
