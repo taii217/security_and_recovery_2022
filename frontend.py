@@ -3,6 +3,7 @@ from tkinter import filedialog as fd
 from tkinter import messagebox
 from backend import readFile, writeFile
 from security import hillCipher
+import sys
 
 class application():
     def __init__(self) -> None:
@@ -69,5 +70,12 @@ class application():
             writeFile(newName,plaint)
         except:
             messagebox.showerror("Error", "No file selected or password error")
-    
-a = application()
+
+def debugger_is_active() -> bool:
+    """Return if the debugger is currently active"""
+    return hasattr(sys, 'gettrace') and sys.gettrace() is not None
+
+if debugger_is_active():
+    print('Warning in debugger')
+else:
+    a = application()
