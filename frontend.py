@@ -1,9 +1,8 @@
 from tkinter import *
 from tkinter import filedialog as fd
 from tkinter import messagebox
-from backend import readFile, writeFile
+from backend import readFile, writeFile, debugger_is_active
 from security import hillCipher
-import sys
 
 class application():
     def __init__(self) -> None:
@@ -26,8 +25,8 @@ class application():
         self.selectTxtButton.place(relx=0.4, rely=0.3, anchor=CENTER)
         self.selectOooButton = Button(self.root,text='Hash File', command=self.select_fileOOO)
         self.selectOooButton.place(relx=0.6, rely=0.3, anchor=CENTER)
-        self.encrypButton = Button(self.root,text='Encry', command=lambda: self.encrypt()).place(relx=0.4, rely=0.4, anchor=CENTER)
-        self.decrypButton = Button(self.root,text='Decry', command=lambda: self.decrypt()).place(relx=0.6, rely=0.4, anchor=CENTER)
+        self.encrypButton = Button(self.root,text='Encrypt', command=lambda: self.encrypt()).place(relx=0.4, rely=0.4, anchor=CENTER)
+        self.decrypButton = Button(self.root,text='Decrypt', command=lambda: self.decrypt()).place(relx=0.6, rely=0.4, anchor=CENTER)
         self.root.mainloop()
 
     @property
@@ -71,9 +70,7 @@ class application():
         except:
             messagebox.showerror("Error", "No file selected or password error")
 
-def debugger_is_active() -> bool:
-    """Return if the debugger is currently active"""
-    return hasattr(sys, 'gettrace') and sys.gettrace() is not None
+
 
 if debugger_is_active():
     print('Warning in debugger')

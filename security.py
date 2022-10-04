@@ -30,6 +30,7 @@ class hillCipher:
      
     def encrypt(self, data):
         salt = self.genSalt()
+        print('satl', salt)
         data = f"{salt}{data}"
         data = self.CharToIntTable(data)
         key_length = len(self.key)
@@ -40,6 +41,8 @@ class hillCipher:
             data_cipher = (m + self.key[ind_key]) % self.arr_size
             cipher.append(data_cipher)
             ind_key = 0 if ind_key + 1 == key_length else ind_key + 1
+
+        print('cipherText number', cipher)
         cipherText = self.IntToCharTable(cipher)
         return cipherText
     
@@ -55,23 +58,10 @@ class hillCipher:
                 plaint.append(data_plaint)
                 ind_key = 0 if ind_key + 1 == key_length else ind_key + 1
             
+            print('Plaintext number', plaint)
             plaintText = self.IntToCharTable(plaint)
             plaintText = plaintText.split('e8605470426611edb8780242ac120002')[-1]
 
             return plaintText
         except:
             return '<this is not your result> !! something error!'
-
-string = "MotChiecBanh"
-key = 'ankem'
-hill = hillCipher(key=key)
-
-cipher = hill.encrypt(string)
-plaint = hill.decrypt(cipher)
-
-print("Orgin text ", string)
-print('Orgin key ', key)
-print("ciphertext ", cipher)
-print("plaint ", plaint)
-if plaint == string: print('result is True') 
-else: print("Falseeeee")

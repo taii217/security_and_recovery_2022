@@ -1,5 +1,6 @@
 import hashlib
 import random
+import sys
 
 def readFile(namefile):
     with open (namefile,'r') as readfile:
@@ -15,7 +16,10 @@ def writeFile(namefile, data):
 def hash(key):
     return hashlib.md5(bytes(key,'utf-8')).hexdigest()
 
-print(random.randint(0,1))
+def debugger_is_active() -> bool:
+    """Return if the debugger is currently active"""
+    return hasattr(sys, 'gettrace') and sys.gettrace() is not None
+
 
 
 
